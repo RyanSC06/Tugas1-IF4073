@@ -4,12 +4,14 @@ if exist([nama, '.bmp'], 'file') == 0
 end
 
 I = imread([nama, '.bmp']);
-[M, N] = size(I);
+[M, N, C] = size(I);
 
-negative = zeros(M, N);
+negative = zeros(M, N, C);
 for i = 1 : M
     for j = 1 : N
-        negative(i,j) = 255 - I(i,j);
+        for k = 1 : C
+            negative(i,j,k) = 255 - I(i,j,k);
+        end
     end
 end
 
