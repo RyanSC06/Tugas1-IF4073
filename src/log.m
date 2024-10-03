@@ -4,14 +4,16 @@ if exist([nama, '.bmp'], 'file') == 0
 end
 
 I = imread([nama, '.bmp']);
-[M, N] = size(I);
+[M, N, C] = size(I);
 
 c = input('Masukkan c: ');
 
-log_transformed = zeros(M, N);
+log_transformed = zeros(M, N, C);
 for i = 1 : M
     for j = 1 : N
-        log_transformed(i,j) = c * log10(double(1 + I(i,j)));
+        for k = 1 : C
+            log_transformed(i,j,k) = c * log10(double(1 + I(i,j,k)));
+        end
     end
 end
 

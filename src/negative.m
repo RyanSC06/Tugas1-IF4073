@@ -6,18 +6,18 @@ end
 I = imread([nama, '.bmp']);
 [M, N, C] = size(I);
 
-negative = zeros(M, N, C);
+neg = zeros(M, N, C);
 for i = 1 : M
     for j = 1 : N
         for k = 1 : C
-            negative(i,j,k) = 255 - I(i,j,k);
+            neg(i,j,k) = 255 - I(i,j,k);
         end
     end
 end
 
-negative = uint8(negative);
+neg = uint8(neg);
 
 figure; imshow(I); title('Citra Masukan');
 figure; imhist(I); title('Histogram Citra Masukan');
-figure; imshow(negative); title('Citra Negatif');
-figure; imhist(negative); title('Histogram Citra Negatif')
+figure; imshow(neg); title('Citra Negatif');
+figure; imhist(neg); title('Histogram Citra Negatif')

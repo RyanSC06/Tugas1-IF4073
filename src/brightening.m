@@ -4,20 +4,22 @@ if exist([nama, '.bmp'], 'file') == 0
 end
 
 I = imread([nama, '.bmp']);
-[M, N] = size(I);
+[M, N, C] = size(I);
 
 a = input('Masukkan a: ');
 b = input('Masukkan b: ');
 
-bright = zeros(M, N);
+bright = zeros(M, N, C);
 for i = 1 : M
     for j = 1 : N
-        bright(i,j) = a * I(i,j) + b;
+        for k = 1 : C
+            bright(i,j,k) = a * I(i,j,k) + b;
         
-        if bright(i,j) > 255
-            bright(i,j) = 255;
-        elseif bright(i,j) < 0
-            bright(i,j) = 0;
+            if bright(i,j,k) > 255
+                bright(i,j,k) = 255;
+            elseif bright(i,j,k) < 0
+                bright(i,j,k) = 0;
+            end
         end
     end
 end
