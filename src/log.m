@@ -13,6 +13,12 @@ for i = 1 : M
     for j = 1 : N
         for k = 1 : C
             log_transformed(i,j,k) = c * log10(double(1 + I(i,j,k)));
+
+            if log_transformed(i,j,k) > 255
+                log_transformed(i,j,k) = 255;
+            elseif log_transformed(i,j,k) < 0
+                log_transformed(i,j,k) = 0;
+            end
         end
     end
 end
