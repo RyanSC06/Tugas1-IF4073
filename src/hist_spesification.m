@@ -45,12 +45,12 @@ end
 
 final_I = uint8(final_I);
 figure; imshow(final_I);
-hist = make_histogram(final_I, 1);
+hist = make_histogram(final_I, 2);
 
 
 
 function [new_I, change_list] = equalize_histogram(I, round)
-    hist = make_histogram(I, 0);
+    hist = make_histogram(I, round);
     [M, N, C] = size(I);
     
     change_list = zeros(C, size(hist,2));
@@ -122,8 +122,10 @@ function [hist] = make_histogram(I, out)
         figure; disp = bar(0:255, hist(k, :));
         
         if out == 0
-            title(sprintf('Histogram Citra Masukan, Channel %d', k));
+            title(sprintf('Histogram Citra Acuan, Channel %d', k));
         elseif out == 1
+            title(sprintf('Histogram Citra Semula, Channel %d', k));
+        elseif out == 2
             title(sprintf('Histogram Citra Akhir, Channel %d', k));
         end
     end
