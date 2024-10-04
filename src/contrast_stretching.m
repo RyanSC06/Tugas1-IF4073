@@ -7,7 +7,7 @@ I = imread([nama, '.bmp']);
 [M, N, C] = size(I);
 
 figure; imshow(I); title('Citra Masukan');
-hist = make_histogram(I);
+hist = make_histogram(I, 0);
 
 new_I = zeros(M, N, C);
 
@@ -37,13 +37,14 @@ for k = 1 : C
 end
 
 new_I = uint8(new_I);
-figure; imshow(new_I); title('Citra Kontras Diregangkan')
-hist = make_histogram(new_I);
+figure; imshow(new_I);
+title('Citra Kontras Diregangkan');
+hist = make_histogram(new_I, 1);
 
 
 
 
-function [hist] = make_histogram(I)
+function [hist] = make_histogram(I, out)
     [M, N, C] = size(I);
 
     if C == 1
@@ -66,6 +67,11 @@ function [hist] = make_histogram(I)
     % Membuat histogram
     for k = 1 : C
         figure; disp = bar(0:255, hist(k, :));
-        title(sprintf('Histogram untuk Channel %d', k));
+        
+        if out == 0
+            title(sprintf('Histogram Citra Masukan, Channel %d', k));
+        elseif out == 1
+            title(sprintf('Histogram Citra Kontras Diregangkan, Channel %d', k));
+        end
     end
 end

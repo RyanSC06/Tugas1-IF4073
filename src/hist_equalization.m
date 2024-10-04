@@ -4,45 +4,57 @@ if exist([nama, '.bmp'], 'file') == 0
 end
 
 I = imread([nama, '.bmp']);
-[M, N, C] = size(I);
-
 figure; imshow(I); title('Citra Masukan');
-hist = make_histogram(I);
 
-freq_list = zeros(C, size(hist,2));
-for k = 1 : size(hist,1)
-    for j = 1 : size(hist,2)
-        if j == 1
-            freq_list(k,j) = hist(k,j) / (M*N);
-        else
-            freq_list(k,j) = freq_list(k,j-1) + (hist(k,j) / (M*N));
-        end
-    end
-end
+new_I = equalize_histogram(I);
+figure; imshow(new_I); 
+title('Citra Histogram Diratakan');
+hist = make_histogram(new_I, 1);
 
-new_I = zeros(M, N, C);
 
-for k = 1 : C
-    for i = 1 : M
-        for j = 1 : N
-            new_I(i,j,k) = round(freq_list(k, I(i,j,k)+1) * 255);
 
-            if new_I(i,j,k) > 255
-                new_I(i,j,k) = 255;
-            elseif new_I(i,j,k) < 0
-                new_I(i,j,k) = 0;
+function [new_I] = equalize_histogram(I)
+    hist = make_histogram(I, 0);
+    [M, N, C] = size(I);
+    
+    change_list = zeros(C, size(hist,2));
+    for k = 1 : size(hist,1)
+        for j = 1 : size(hist,2)
+            if j == 1
+                change_list(k,j) = hist(k,j) / (M*N);
+            else
+                change_list(k,j) = change_list(k,j-1) + (hist(k,j) / (M*N));
+                change_list(k,j-1) = floor(change_list(k,j-1) * 255);
+    
+                if j == size(hist,2)
+                    change_list(k,j) = floor(change_list(k,j) * 255);
+                end
             end
         end
     end
+    
+    new_I = zeros(M, N, C);
+    
+    for k = 1 : C
+        for i = 1 : M
+            for j = 1 : N
+                new_I(i,j,k) = change_list(k, I(i,j,k)+1);
+    
+                if new_I(i,j,k) > 255
+                    new_I(i,j,k) = 255;
+                elseif new_I(i,j,k) < 0
+                    new_I(i,j,k) = 0;
+                end
+            end
+        end
+    end
+    
+    new_I = uint8(new_I);
 end
 
-new_I = uint8(new_I);
-figure; imshow(new_I); title('Citra Histogram Diratakan')
-hist = make_histogram(new_I);
 
 
-
-function [hist] = make_histogram(I)
+function [hist] = make_histogram(I, out)
     [M, N, C] = size(I);
 
     if C == 1
@@ -65,6 +77,11 @@ function [hist] = make_histogram(I)
     % Membuat histogram secara manual
     for k = 1 : C
         figure; disp = bar(0:255, hist(k, :));
-        title(sprintf('Histogram Manual untuk Channel %d', k));
+        
+        if out == 0
+            title(sprintf('Histogram Citra Masukan, Channel %d', k));
+        elseif out == 1
+            title(sprintf('Histogram Diratakan, Channel %d', k));
+        end
     end
 end
