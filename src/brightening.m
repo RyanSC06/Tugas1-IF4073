@@ -10,7 +10,7 @@ function [bright] = brightening(I, a, b)
     for i = 1 : M
         for j = 1 : N
             for k = 1 : C
-                bright(i,j,k) = a * I(i,j,k) + b;
+                bright(i,j,k) = a * double(I(i,j,k)) + b;
                 
                 % OPERASI CLIPPING
                 % Nilai pixel yang lebih dari 255 diubah jadi 255
