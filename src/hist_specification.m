@@ -1,39 +1,6 @@
 function [final_I] = hist_specification(I1, I2)
     % final_I = imhistmatch(I1, I2);
-    % MENYAMAKAN JUMLAH CHANNEL (DIMENSI)
-        % I1 = Citra semula
-        % I2 = Citra acuan
-    % Kasus citra semula berdimensi lebih rendah daripada citra acuan
-    if size(I1,3) < size(I2,3)
-        [M, N, ~] = size(I1);
-        temp_I1 = zeros(M, N, 3);
-
-        % Satu-satunya channel, ditumpuk 3x
-        for i = 1 : M
-            for j = 1 : N
-                for k = 1 : 3
-                    temp_I1(i, j, k) = I1(i, j, 1);
-                end
-            end
-        end
-        I1 = temp_I1;
-
-    % Kasus citra acuan berdimensi lebih rendah daripada citra semula
-    elseif size(I1,3) > size(I2,3)
-        [M, N, ~] = size(I2);
-        temp_I2 = zeros(M, N, 3);
-
-        % Satu-satunya channel, ditumpuk 3x
-        for i = 1 : M
-            for j = 1 : N
-                for k = 1 : 3
-                    temp_I2(i, j, k) = I2(i, j, 1);
-                end
-            end
-        end
-        I2 = temp_I2;
-    end
-
+    
     % PERATAAN HISTOGRAM UNTUK KEDUA CITRA
         % change1 adalah sebuah larik yang menunjukkan nilai pixel pada I1 harus 
         % diubah menjadi berapa agar menghasilkan citra yang histogramnya merata
