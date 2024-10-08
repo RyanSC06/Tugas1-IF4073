@@ -1,20 +1,3 @@
-%function contrast_stretching()
-%    nama = input('Masukkan nama bmp: ', 's');
-%    if exist([nama, '.bmp'], 'file') == 0
-%        error('Tidak ada file dengan nama tersebut');
-%    end
-%    
-%    I = imread([nama, '.bmp']);
-%    figure; imshow(I); title('Citra Masukan');
-%    
-%    new_I = stretch_contrast(I);
-%    figure; imshow(new_I);
-%    title('Citra Kontras Diregangkan');
-%    hist = make_histogram(new_I, "Kontras Diregangkan");
-%end
-
-
-
 function [new_I, minValue, maxValue] = contrast_stretching(I)
     % Membuat histogram dari I
     hist = make_histogram(I);

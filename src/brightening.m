@@ -1,24 +1,3 @@
-%function brightening()
-%    nama = input('Masukkan nama bmp: ', 's');
-%    if exist([nama, '.bmp'], 'file') == 0
-%        error('Tidak ada file dengan nama tersebut');
-%    end
-%    
-%    I = imread([nama, '.bmp']);
-%    a = input('Masukkan a: ');
-%    b = input('Masukkan b: ');
-%    
-%    bright = brightening_transform(I, a, b);
-%
-%    figure; imshow(I); title('Citra Masukan');
-%    figure; imhist(I); title('Histogram Citra Masukan');
-%    
-%    figure; imshow(bright); title('Citra Brightened');
-%    figure; imhist(bright); title('Histogram Citra Brightened');
-%end
-
-
-
 function [bright] = brightening(I, a, b)
     [M, N, C] = size(I);
 

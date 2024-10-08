@@ -14,17 +14,4 @@ function [hist] = make_histogram(I)
             end
         end
     end
-    
-    %colorCode = ['r', 'g', 'b'];
-
-    % Membuat histogram secara manual
-    %for k = 1 : C
-    %    if C == 1
-    %        figure; bar(0:255, hist(k, :), 'FaceColor', 'k');
-    %    else
-    %        figure; bar(0:255, hist(k, :), 'FaceColor', colorCode(k));
-    %    end
-    %
-    %    title(sprintf('Histogram Citra %s, Channel %d', customTitle, k));
-    %end
 end

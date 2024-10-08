@@ -1,23 +1,3 @@
-%function exponent()    
-%    nama = input('Masukkan nama bmp: ', 's');
-%    if exist([nama, '.bmp'], 'file') == 0
-%        error('Tidak ada file dengan nama tersebut');
-%    end
-%    
-%    I = imread([nama, '.bmp']);
-%    c = input('Masukkan c: ');
-%    gamma = input('Masukkan gamma: ');
-%
-%    figure; imshow(I); title('Citra Masukan');
-%    figure; imhist(I); title('Histogram Citra Masukan');
-%    
-%    expo = exponent_transform(I, c, gamma);
-%    figure; imshow(expo); title('Citra Transformasi Pangkat');
-%    figure; imhist(expo); title('Histogram Citra Transformasi Pangkat');
-%end
-
-
-
 function [expo] = power_gamma(I, c, gamma)
     [M, N, C] = size(I);
 
